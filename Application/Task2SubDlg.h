@@ -15,7 +15,7 @@ class CTask2SubDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CTask2SubDlg)
 public:
-	CTask2SubDlg(CWnd* pParent = nullptr, DlgOpnMode mode = Mode_GWM);
+	CTask2SubDlg(CWnd* pParent = nullptr, DlgOpnMode mode = Mode_GWM, int iSel = 0);
 	virtual ~CTask2SubDlg();
 
 	// Dialog Data
@@ -47,4 +47,5 @@ private:
 
 	CStatic m_sttLabel;
 	CComboBox m_cbbMethod;
+	int m_iCbbSel = 0;
 };

@@ -47,14 +47,14 @@ END_MESSAGE_MAP()
 void CTask2Dlg::OnBnClickGWM()
 {
 	if (!m_pSubDlg) {
-		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM);
+		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM, m_iGWM);
 		m_pSubDlg->Create(CTask2SubDlg::IDD);
 	}
 	else {
 		if (m_pSubDlg->GetOpnMode() != DlgOpnMode::Mode_GWM) {
 			m_pSubDlg->DestroyWindow();
 			delete m_pSubDlg;
-			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM);
+			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM, m_iGWM);
 			m_pSubDlg->Create(CTask2SubDlg::IDD);
 		}
 	}
@@ -68,14 +68,14 @@ void CTask2Dlg::OnBnClickGWM()
 void CTask2Dlg::OnBnClickTM()
 {
 	if (!m_pSubDlg) {
-		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM);
+		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM, m_iTM);
 		m_pSubDlg->Create(CTask2SubDlg::IDD);
 	}
 	else {
 		if (m_pSubDlg->GetOpnMode() != DlgOpnMode::Mode_TM) {
 			m_pSubDlg->DestroyWindow();
 			delete m_pSubDlg;
-			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM);
+			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM, m_iTM);
 			m_pSubDlg->Create(CTask2SubDlg::IDD);
 		}
 	}
@@ -110,10 +110,14 @@ LRESULT CTask2Dlg::OnUpdateLabel(WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	if (mode == Mode_GWM)
+	if (mode == Mode_GWM) {
 		m_sttGWM.SetWindowText(strText);
-	else
+		m_iGWM = i;
+	}
+	else {
 		m_sttTM.SetWindowText(strText);
+		m_iTM = i;
+	}
 
 	return 0;
 }

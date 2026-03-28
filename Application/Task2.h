@@ -25,7 +25,6 @@ protected:
 
 	afx_msg void OnBnClickGWM();
 	afx_msg void OnBnClickTM();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg LRESULT OnUpdateLabel(WPARAM wParam, LPARAM lParam);
 
 private:
@@ -48,4 +47,6 @@ private:
 	CStatic m_sttTM;
 
 	CTask2SubDlg* m_pSubDlg = nullptr;
+	int m_iGWM = 0;
+	int m_iTM = 0;
 };

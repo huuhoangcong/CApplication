@@ -7,10 +7,11 @@
 
 IMPLEMENT_DYNAMIC(CTask2SubDlg, CDialogEx)
 
-CTask2SubDlg::CTask2SubDlg(CWnd* pParent, DlgOpnMode mode)
+CTask2SubDlg::CTask2SubDlg(CWnd* pParent, DlgOpnMode mode, int iSel)
 	: CDialogEx(CTask2SubDlg::IDD, pParent)
 {
 	m_mode = mode;
+	m_iCbbSel = iSel;
 	m_strDlgName = m_mode == Mode_GWM ? _T("Water Ground Method") : _T("Thermal Method");
 }
 
@@ -46,7 +47,7 @@ BOOL CTask2SubDlg::OnInitDialog()
 		m_cbbMethod.AddString(_T("Steady Thermal FEA"));
 		m_cbbMethod.AddString(_T("Transient Thermal FEA"));
 	}
-	m_cbbMethod.SetCurSel(0);
+	m_cbbMethod.SetCurSel(m_iCbbSel);
 
 	AdjustLayout();
 	return TRUE;
