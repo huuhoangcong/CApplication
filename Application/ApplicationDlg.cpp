@@ -8,8 +8,6 @@
 #include "ApplicationDlg.h"
 #include "afxdialogex.h"
 
-#include "Task2.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -146,16 +144,12 @@ void CApplicationDlg::OnClickedTask2()
 
 void CApplicationDlg::InitUIComponent()
 {
-	CFont m_font;
-	m_font.CreatePointFont(80, _T("MS Shell Dlg"));
-
 	m_btnTask1.Create(_T("Task 1"),
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 		CRect(0,0,0,0),
 		this,
 		ID_BTN_TASK1
 	);
-	m_btnTask1.SetFont(&m_font);
 
 	m_btnTask2.Create(_T("Task 2"),
 		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
@@ -163,7 +157,6 @@ void CApplicationDlg::InitUIComponent()
 		this,
 		ID_BTN_TASK2
 	);
-	m_btnTask2.SetFont(&m_font);
 }
 
 void CApplicationDlg::AdjustLayout()

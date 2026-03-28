@@ -6,8 +6,9 @@
 #define IDM_ABOUTBOX					0x0010
 #define IDD_ABOUTBOX					100
 #define IDS_ABOUTBOX					101
-#define IDD_APPLICATION_DIALOG				102
+#define IDD_APPLICATION_DIALOG			102
 #define IDD_TASK2_DIALOG				103
+#define IDD_SUB_DLG						104
 
 // Next default values for new objects
 //

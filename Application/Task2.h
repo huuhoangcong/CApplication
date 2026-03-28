@@ -2,8 +2,8 @@
 
 #include "pch.h"
 #include "framework.h"
-#include "ApplicationDlg.h"
 #include "afxdialogex.h"
+#include "Task2SubDlg.h"
 
 class CTask2Dlg : public CDialogEx
 {
@@ -22,4 +22,30 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnInitDialog();
+
+	afx_msg void OnBnClickGWM();
+	afx_msg void OnBnClickTM();
+	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg LRESULT OnUpdateLabel(WPARAM wParam, LPARAM lParam);
+
+private:
+	void InitUIComponent();
+	void AdjustLayout();
+
+private:
+	enum CtrlID {
+		ID_BTN_GWM = 1001,
+		ID_BTN_TM = 1002,
+
+		ID_LABEL_GWM = 2001,
+		ID_LABEL_TM = 2002,
+	};
+
+	CButton m_btnGWM;
+	CButton m_btnTM;
+
+	CStatic m_sttGWM;
+	CStatic m_sttTM;
+
+	CTask2SubDlg* m_pSubDlg = nullptr;
 };

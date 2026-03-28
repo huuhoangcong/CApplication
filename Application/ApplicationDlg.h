@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "Task2.h"
 
 // CApplicationDlg dialog
 class CApplicationDlg : public CDialogEx
@@ -49,4 +49,6 @@ private:
 
 	CButton m_btnTask1;
 	CButton m_btnTask2;
+
+	CTask2Dlg* m_pTask2Dlg = nullptr;
 };
