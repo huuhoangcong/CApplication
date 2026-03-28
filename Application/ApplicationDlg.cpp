@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CApplicationDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_SIZE()
 
+	ON_BN_CLICKED(ID_BTN_TASK1, &CApplicationDlg::OnClickedTask1)
 	ON_BN_CLICKED(ID_BTN_TASK2, &CApplicationDlg::OnClickedTask2)
 END_MESSAGE_MAP()
 
@@ -132,6 +133,15 @@ HCURSOR CApplicationDlg::OnQueryDragIcon()
 
 void CApplicationDlg::OnClickedTask1()
 {
+	std::vector<Task1::WaterPressurePoint> points = {
+		{0, 0, 0},
+		{0, 0, 15},
+		{1e-19, 0, 10},
+		{0.5, 0, 25.123},
+		{0.1, 10, 25}
+	};
+
+	Task1::WriteWaterPressure(points);
 }
 
 void CApplicationDlg::OnClickedTask2()

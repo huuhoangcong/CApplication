@@ -3,7 +3,9 @@
 //
 
 #pragma once
+#include "Task1.h"
 #include "Task2.h"
+
 
 // CApplicationDlg dialog
 class CApplicationDlg : public CDialogEx
