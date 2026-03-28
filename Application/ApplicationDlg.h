@@ -27,8 +27,26 @@ protected:
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
+	virtual void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+	afx_msg void OnClickedTask1();
+	afx_msg void OnClickedTask2();
+
+private:
+	void InitUIComponent();
+	void AdjustLayout();
+
+private:
+
+	enum CtrlID {
+		ID_BTN_TASK1 = 1001,
+		ID_BTN_TASK2 = 1002
+	};
+
+	CButton m_btnTask1;
+	CButton m_btnTask2;
 };

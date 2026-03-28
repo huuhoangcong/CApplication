@@ -8,42 +8,11 @@
 #include "ApplicationDlg.h"
 #include "afxdialogex.h"
 
+#include "Task2.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-
-// CAboutDlg dialog used for App About
-
-class CAboutDlg : public CDialogEx
-{
-public:
-	CAboutDlg();
-
-// Dialog Data
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ABOUTBOX };
-#endif
-
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-
-// Implementation
-protected:
-	DECLARE_MESSAGE_MAP()
-};
-
-CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
-{
-}
-
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-}
-
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-END_MESSAGE_MAP()
 
 
 // CApplicationDlg dialog
@@ -56,12 +25,17 @@ CApplicationDlg::CApplicationDlg(CWnd* pParent /*=nullptr*/)
 void CApplicationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, ID_BTN_TASK1, m_btnTask1);
+	DDX_Control(pDX, ID_BTN_TASK2, m_btnTask2);
 }
 
 BEGIN_MESSAGE_MAP(CApplicationDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_SIZE()
+
+	ON_BN_CLICKED(ID_BTN_TASK2, &CApplicationDlg::OnClickedTask2)
 END_MESSAGE_MAP()
 
 
@@ -69,7 +43,9 @@ END_MESSAGE_MAP()
 
 BOOL CApplicationDlg::OnInitDialog()
 {
+	InitUIComponent();
 	CDialogEx::OnInitDialog();
+	AdjustLayout();
 
 	// Add "About..." menu item to system menu.
 
@@ -101,12 +77,18 @@ BOOL CApplicationDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
+void CApplicationDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+	AdjustLayout();
+}
+
 void CApplicationDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
-		CAboutDlg dlgAbout;
-		dlgAbout.DoModal();
+		//CAboutDlg dlgAbout;
+		//dlgAbout.DoModal();
 	}
 	else
 	{
@@ -148,5 +130,69 @@ void CApplicationDlg::OnPaint()
 HCURSOR CApplicationDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+void CApplicationDlg::OnClickedTask1()
+{
+}
+
+void CApplicationDlg::OnClickedTask2()
+{
+	CTask2Dlg task2Dlg(this);
+	if (task2Dlg.DoModal()) {
+
+	}
+}
+
+void CApplicationDlg::InitUIComponent()
+{
+	CFont m_font;
+	m_font.CreatePointFont(80, _T("MS Shell Dlg"));
+
+	m_btnTask1.Create(_T("Task 1"),
+		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+		CRect(0,0,0,0),
+		this,
+		ID_BTN_TASK1
+	);
+	m_btnTask1.SetFont(&m_font);
+
+	m_btnTask2.Create(_T("Task 2"),
+		WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+		CRect(0,0,0,0),
+		this,
+		ID_BTN_TASK2
+	);
+	m_btnTask2.SetFont(&m_font);
+}
+
+void CApplicationDlg::AdjustLayout()
+{
+	CRect rect;
+	GetClientRect(&rect);
+
+	CPoint pt = rect.CenterPoint();
+
+	int cx = rect.right;
+	int cy = rect.bottom;
+
+	if (!::IsWindow(m_btnTask1.GetSafeHwnd()))
+		return;
+
+	if (!::IsWindow(m_btnTask2.GetSafeHwnd()))
+		return;
+
+	CButton* btnCancel = (CButton*)GetDlgItem(IDCANCEL);
+	if (!btnCancel)
+		return;
+
+	CButton* btnOK = (CButton*)GetDlgItem(IDOK);
+	if (!btnOK)
+		return;
+
+	m_btnTask1.MoveWindow(20, 20, cx - 40, cy / 2 - 40);
+	m_btnTask2.MoveWindow(20, cy / 2, cx - 40, cy / 2 - 40);
+	btnOK->MoveWindow(pt.x - 80, cy - 35, 70, 30);
+	btnCancel->MoveWindow(pt.x + 10, cy - 35, 70, 30);
 }
 
