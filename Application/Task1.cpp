@@ -8,7 +8,7 @@ namespace Task1
 {
 	void WriteWaterPressure(std::vector<WaterPressurePoint>& points)
     {
-        std::ofstream file("Task1Ouput.txt");
+        std::ofstream file("Task1Output.txt");
         file << std::fixed << std::setprecision(3);
 
         std::unordered_map<Key, WaterPressurePoint, KeyHash> hashMap;
