@@ -14,6 +14,7 @@ namespace Task1 {
     {
         long long x, y;
 
+        Key() {}
         Key(const WaterPressurePoint& point)
         {
             x = (long long)(point.x / dDstTol);
@@ -30,7 +31,11 @@ namespace Task1 {
     {
         size_t operator()(const Key& k) const
         {
-            return std::hash<long long>()(k.x) ^ (std::hash<long long>()(k.y) << 1);
+            size_t seed = 0;
+            std::hash<long long> hash;
+            seed ^= hash(k.x) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+            seed ^= hash(k.y) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+            return seed;
         }
     };
 
