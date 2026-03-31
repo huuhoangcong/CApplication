@@ -3,7 +3,6 @@
 
 namespace Task1 {
     const double dDstTol = 1e-03;
-    const double dHashTol = 1e-06;
 
     struct WaterPressurePoint {
         double x;
@@ -17,8 +16,8 @@ namespace Task1 {
 
         Key(const WaterPressurePoint& point)
         {
-            x = (long long)(point.x / dHashTol);
-            y = (long long)(point.y / dHashTol);
+            x = (long long)(point.x / dDstTol);
+            y = (long long)(point.y / dDstTol);
         }
 
         bool operator==(const Key& other) const

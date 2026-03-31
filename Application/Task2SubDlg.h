@@ -4,8 +4,6 @@
 #include "framework.h"
 #include "afxdialogex.h"
 
-#define UPDATE_LABEL_MSG (WM_APP + 100)
-
 enum DlgOpnMode {
 	Mode_GWM = 0,
 	Mode_TM
@@ -22,6 +20,7 @@ public:
 	enum { IDD = IDD_SUB_DLG };
 
 	DlgOpnMode GetOpnMode() { return m_mode; }
+	int GetCbbSel() { return m_iCbbSel; }
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
@@ -30,7 +29,8 @@ protected:
 protected:
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnInitDialog();
-	afx_msg void OnCbnChange();
+	virtual void OnOK();
+	//afx_msg void OnCbnChange();
 
 private:
 	void InitUIComponent();

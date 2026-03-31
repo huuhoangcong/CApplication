@@ -20,7 +20,6 @@ CTask2SubDlg::~CTask2SubDlg()
 }
 
 BEGIN_MESSAGE_MAP(CTask2SubDlg, CDialogEx)
-	ON_CBN_SELCHANGE(ID_CBB_METHOD, &CTask2SubDlg::OnCbnChange)
 END_MESSAGE_MAP()
 
 void CTask2SubDlg::DoDataExchange(CDataExchange* pDX)
@@ -36,7 +35,6 @@ BOOL CTask2SubDlg::OnInitDialog()
 	InitUIComponent();
 	CDialogEx::OnInitDialog();
 
-	m_cbbMethod.AddString(_T(""));
 	if (m_mode == Mode_GWM) {
 		m_cbbMethod.AddString(_T("Static Water"));
 		m_cbbMethod.AddString(_T("Steady FEA"));
@@ -47,16 +45,18 @@ BOOL CTask2SubDlg::OnInitDialog()
 		m_cbbMethod.AddString(_T("Steady Thermal FEA"));
 		m_cbbMethod.AddString(_T("Transient Thermal FEA"));
 	}
+
 	m_cbbMethod.SetCurSel(m_iCbbSel);
 
 	AdjustLayout();
 	return TRUE;
 }
 
-void CTask2SubDlg::OnCbnChange()
+void CTask2SubDlg::OnOK()
 {
-	int iMethod = m_cbbMethod.GetCurSel();
-	m_pParentWnd->SendMessage(UPDATE_LABEL_MSG, WPARAM(m_mode), LPARAM(iMethod));
+	UpdateData();
+	m_iCbbSel = m_cbbMethod.GetCurSel();
+	CDialogEx::OnOK();
 }
 
 void CTask2SubDlg::InitUIComponent()

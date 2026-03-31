@@ -16,8 +16,7 @@ CTask2Dlg::CTask2Dlg(CWnd* pParent /*=nullptr*/)
 
 CTask2Dlg::~CTask2Dlg()
 {
-	if (m_pSubDlg)
-		delete m_pSubDlg;
+
 }
 
 void CTask2Dlg::DoDataExchange(CDataExchange* pDX)
@@ -38,7 +37,7 @@ BOOL CTask2Dlg::OnInitDialog()
 BEGIN_MESSAGE_MAP(CTask2Dlg, CDialogEx)
 	ON_BN_CLICKED(ID_BTN_GWM, &CTask2Dlg::OnBnClickGWM)
 	ON_BN_CLICKED(ID_BTN_TM, &CTask2Dlg::OnBnClickTM)
-	ON_MESSAGE(UPDATE_LABEL_MSG, &CTask2Dlg::OnUpdateLabel)
+	//ON_MESSAGE(UPDATE_LABEL_MSG, &CTask2Dlg::OnUpdateLabel)
 END_MESSAGE_MAP()
 
 
@@ -46,80 +45,47 @@ END_MESSAGE_MAP()
 
 void CTask2Dlg::OnBnClickGWM()
 {
-	if (!m_pSubDlg) {
-		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM, m_iGWM);
-		m_pSubDlg->Create(CTask2SubDlg::IDD);
-	}
-	else {
-		if (m_pSubDlg->GetOpnMode() != DlgOpnMode::Mode_GWM) {
-			m_pSubDlg->DestroyWindow();
-			delete m_pSubDlg;
-			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_GWM, m_iGWM);
-			m_pSubDlg->Create(CTask2SubDlg::IDD);
-		}
-	}
-
-	if (m_pSubDlg) {
-		m_pSubDlg->ShowWindow(SW_SHOW);
-		m_pSubDlg->SetFocus();
+	CTask2SubDlg subDlg(this, DlgOpnMode::Mode_GWM, m_iGWM);
+	if (IDOK == subDlg.DoModal()) {
+		m_iGWM = subDlg.GetCbbSel();
+		UpdateLabel(DlgOpnMode::Mode_GWM, m_iGWM);
 	}
 }
 
 void CTask2Dlg::OnBnClickTM()
 {
-	if (!m_pSubDlg) {
-		m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM, m_iTM);
-		m_pSubDlg->Create(CTask2SubDlg::IDD);
-	}
-	else {
-		if (m_pSubDlg->GetOpnMode() != DlgOpnMode::Mode_TM) {
-			m_pSubDlg->DestroyWindow();
-			delete m_pSubDlg;
-			m_pSubDlg = new CTask2SubDlg(this, DlgOpnMode::Mode_TM, m_iTM);
-			m_pSubDlg->Create(CTask2SubDlg::IDD);
-		}
-	}
-
-	if (m_pSubDlg) {
-		m_pSubDlg->ShowWindow(SW_SHOW);
-		m_pSubDlg->SetFocus();
+	CTask2SubDlg subDlg(this, DlgOpnMode::Mode_TM, m_iTM);
+	if (IDOK == subDlg.DoModal()) {
+		m_iTM = subDlg.GetCbbSel();
+		UpdateLabel(DlgOpnMode::Mode_TM, m_iTM);
 	}
 }
 
-LRESULT CTask2Dlg::OnUpdateLabel(WPARAM wParam, LPARAM lParam)
+void CTask2Dlg::UpdateLabel(DlgOpnMode mode, int iMethod)
 {
-	DlgOpnMode mode = (DlgOpnMode)wParam;
-	int i = (int)lParam;
-
 	CString strText = _T("");
 
-	switch (i) {
-	case 0:
+	switch (iMethod) {
+	case -1:
 		strText = mode == Mode_GWM ? _T("Ground Water Method") : _T("Thermal Method");
 		break;
-	case 1:
+	case 0:
 		strText = mode == Mode_GWM ? _T("Static Water") : _T("Static Temperature");
 		break;
-	case 2:
+	case 1:
 		strText = mode == Mode_GWM ? _T("Steady FEA") : _T("Steady Thermal FEA");
 		break;
-	case 3:
+	case 2:
 		strText = mode == Mode_GWM ? _T("Transient FEA") : _T("Transient Thermal FEA");
 		break;
 	default:
 		break;
 	}
 
-	if (mode == Mode_GWM) {
+	if (mode == Mode_GWM)
 		m_sttGWM.SetWindowText(strText);
-		m_iGWM = i;
-	}
-	else {
+	else
 		m_sttTM.SetWindowText(strText);
-		m_iTM = i;
-	}
-
-	return 0;
 }
 
 void CTask2Dlg::InitUIComponent()
